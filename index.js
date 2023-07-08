@@ -10,13 +10,44 @@ $('#mainContainer').hide();
   })
 
 
-  function fetchMarvelCharacters() {
+  function fetchMarvelCharacters(characterName) {
+    const timestamp = Date.now().toString();
+    let hashedKey = getHashedParam(timestamp);
+    let fetchUrl  = 'https://gateway.marvel.com/v1/public/characters?apikey=' + publicKey + '&ts=' + timestamp + '&hash=' + hashedKey;
+
+    // decide if all characters to fetched of purticular character to be fectched from characterName
+    if(characterName != undefined){
+      fetchUrl += '&nameStartsWith='+characterName;
+    }
+
+
+    // using AJAX to fetch marvel characters
+    $.ajax({
+      url: fetchUrl,
+      method: 'GET',
+      success: function (response) {
+        
+        // if code is success
+        if (response.code == 200) {
+          console.log(response);
+          manipulatedDOMForCharacters(response.data.results);
+        }
+
+      },
+      error: function (error) {
+        console.log('Error:', error);
+      }
+    });
+
+  }
+
+  function fetchMarvelCharactersWithSomeName(characteName) {
     const timestamp = Date.now().toString();
     let hashedKey = getHashedParam(timestamp);
 
     // using AJAX to fetch marvel characters
     $.ajax({
-      url: ' https://gateway.marvel.com/v1/public/characters?apikey=' + publicKey + '&ts=' + timestamp + '&hash=' + hashedKey,
+      url: ' https://gateway.marvel.com/v1/public/characters?apikey=' + publicKey + '&ts=' + timestamp + '&hash=' + hashedKey+'&nameStartsWith='+characteName,
       method: 'GET',
       success: function (response) {
         
@@ -105,6 +136,16 @@ $('#mainContainer').hide();
       localStorage.setItem('favoriteCharacters', JSON.stringify(parsedData));
     }
   }
+
+  // function to manage what character by name to be fetched
+  function handleSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const searchQuery = searchInput.value.trim().toLowerCase();
+    fetchMarvelCharacters(searchQuery);
+  }
+  
+  document.getElementById('searchButton').addEventListener('click', handleSearch);
+  
   
   
 }
