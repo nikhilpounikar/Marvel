@@ -1,0 +1,75 @@
+html,body {
+           
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.main-container {
+    padding:1%;
+    margin:2px;
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+
+
+
+.card{
+   
+    width: calc(95%/5);
+    padding: 3px;
+    cursor: pointer;
+}
+
+.card-image img{
+    height:250px;
+    width: 100%;
+    object-fit: cover;
+    border: 2px solid black;
+    border-radius: 2px;
+}
+
+.card-info{
+    display: flex;
+    height: 40px;
+}
+
+.character-name{
+    width:90%;
+    background-color: #292C3E;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: small;
+    font-weight: bold;
+}
+.add-to-favourate{
+    margin-left: 3px;
+   
+}
+.fav-character-btn{
+    background-color: #FF468D;
+    height: 40px;
+    width: 40px;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header{
+    /* position: fixed; */
+    top:0;
+    left:0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height:30px;
+    margin: 1%;
+}

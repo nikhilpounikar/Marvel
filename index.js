@@ -6,7 +6,7 @@ var imageContainer = document.getElementById('image-container');
   const privateKey = 'e4c30e534f5c1a57acca17e1bf283898c84faa89';
 
   $(document).ready(function () {
-
+    $('#mainContainer').hide();
     fetchMarvelCharacters();
   })
 
@@ -58,17 +58,23 @@ var imageContainer = document.getElementById('image-container');
 
     //iterate over character array
     for (let character of charactersArray) {
-      console.log(character);
+
+
+     
       //clone the dummy card along with its childs
       let currentCard = card.cloneNode(true); // Clone the card element
 
       // prepare the image src
       let url = character.thumbnail.path + '.' + character.thumbnail.extension;
-
+      let anchor = currentCard.querySelector('.card-image a');
+      anchor.setAttribute('href','/superhero.html?characterId='+character.id);
       // lets add the image source to image tag
       let characterImg = currentCard.querySelector('.card-image img'); // Target the img tag
       characterImg.src = url; // Set the src attribute of the img tag
-
+      
+      // setting id as characterid in order to fetch more details about purticula character
+      characterImg.setAttribute('id',character.id);
+      
       let characterNameSpan = currentCard.querySelector('.card-info span');
 
       characterNameSpan.innerHTML  = character.name;
@@ -83,15 +89,21 @@ var imageContainer = document.getElementById('image-container');
 
     // hide the dummy card 
     card.style.display = 'none';
+    $('#mainContainer').show();
   }
 
   // to get hased key for marvel API
   function getHashedParam(timestamp) {
     var hash = CryptoJS.MD5(timestamp + privateKey + publicKey);
-    console.log(hash.toString());
     return hash.toString();
 
   }
+
+
+  $('.card').click(function(event){
+
+    console.log(event.id);
+  })
 
 
 }
