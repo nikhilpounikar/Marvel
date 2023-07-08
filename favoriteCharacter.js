@@ -1,39 +1,13 @@
 $('#mainContainer').hide();
 {
-  // API credentials
-  const publicKey = '4702f56dbcc45349d61a76d91edf52bb';
-  const privateKey = 'e4c30e534f5c1a57acca17e1bf283898c84faa89';
-
+  
   $(document).ready(function () {
-    
-    fetchMarvelCharacters();
+   
+    let favoriteCharacters = localStorage.getItem('favoriteCharacters');
+    // Parse the existing data as JSON (if any)
+    let parsedData = favoriteCharacters ? JSON.parse(favoriteCharacters) : [];
+    manipulatedDOMForCharacters(parsedData);
   })
-
-
-  function fetchMarvelCharacters() {
-    const timestamp = Date.now().toString();
-    let hashedKey = getHashedParam(timestamp);
-
-    // using AJAX to fetch marvel characters
-    $.ajax({
-      url: ' https://gateway.marvel.com/v1/public/characters?apikey=' + publicKey + '&ts=' + timestamp + '&hash=' + hashedKey,
-      method: 'GET',
-      success: function (response) {
-        
-        // if code is success
-        if (response.code == 200) {
-
-          manipulatedDOMForCharacters(response.data.results);
-        }
-
-      },
-      error: function (error) {
-        console.log('Error:', error);
-      }
-    });
-
-  }
-
 
   function manipulatedDOMForCharacters(charactersArray) {
 
@@ -63,11 +37,12 @@ $('#mainContainer').hide();
 
       characterNameSpan.innerHTML  = character.name;
 
-      let favCharacterButton = currentCard.querySelector('.card-info button');
+      let favCharacterRemoveButton = currentCard.querySelector('.card-info button');
       
-      favCharacterButton.setAttribute('id', character.id);
-      favCharacterButton.addEventListener('click',function(){
-        addToLocalStorage(character);
+      favCharacterRemoveButton.setAttribute('id', character.id);
+      favCharacterRemoveButton.addEventListener('click',function(){
+        
+        removeFromLocalStorage(character.id);
       })
 
            //console.log(characterNameSpan);
@@ -80,30 +55,26 @@ $('#mainContainer').hide();
     $('#mainContainer').show();
   }
 
-  // to get hased key for marvel API
-  function getHashedParam(timestamp) {
-    var hash = CryptoJS.MD5(timestamp + privateKey + publicKey);
-    return hash.toString();
-
-  }
-
-  function addToLocalStorage(character) {
-    // Retrieve existing data from local storage (if any)
+  function removeFromLocalStorage(characterId) {
+    
+    // Retrieve existing data from local storage
     let existingData = localStorage.getItem('favoriteCharacters');
   
-    // Parse the existing data as JSON (if any)
+    // Parse the existing data as JSON
     let parsedData = existingData ? JSON.parse(existingData) : [];
   
-    // Check if the character already exists in the data
-    const existingCharacter = parsedData.find(c => c.id === character.id);
+    // Find the index of the character with the specified ID
+    const index = parsedData.findIndex(character => character.id === characterId);
+    console.log(index);
+    // If the character is found, remove it from the array
+    if (index !== -1) {
+      parsedData.splice(index, 1);
   
-    if (!existingCharacter) {
-      // Add the new character to the existing data
-      parsedData.push(character);
-  
-      // Store the updated data in local storage
+      // Update the data in local storage
       localStorage.setItem('favoriteCharacters', JSON.stringify(parsedData));
     }
+
+    location.reload();
   }
   
   

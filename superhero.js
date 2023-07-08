@@ -1,12 +1,13 @@
+$('#mainContainer').hide();
 {
     // API credentials
     const publicKey = '4702f56dbcc45349d61a76d91edf52bb';
     const privateKey = 'e4c30e534f5c1a57acca17e1bf283898c84faa89';
 
     $(document).ready(function () {
-        $('#mainContainer').hide();
+       
         // Get the current URL
-const url = new URL(window.location.href);
+        const url = new URL(window.location.href);
         // Get the search parameters from the URL
         const searchParams = new URLSearchParams(url.search);
 
