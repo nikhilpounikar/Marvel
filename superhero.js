@@ -61,7 +61,8 @@ const url = new URL(window.location.href);
          let favCharacterButton = currentCard.querySelector('.card-info button');
          
         favCharacterButton.setAttribute('id', character.id);
-
+        let descriptionPara = document.querySelector('#description p');
+        descriptionPara.textContent = character.description;
         manageStories(character.stories);
         manageEvents(character.events);
         manageSeries(character.series);

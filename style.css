@@ -73,3 +73,18 @@ header{
     height:30px;
     margin: 1%;
 }
+
+.list{
+
+    display: flex;
+    flex-wrap: wrap;
+    /* column-count: 2; */
+    justify-content: space-around;
+}
+
+.list div{
+    flex-basis: 40%;
+    padding: 10px;
+    /* height: 40vh; */
+    /* overflow-y: scroll; */
+}
