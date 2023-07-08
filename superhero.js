@@ -1,4 +1,5 @@
 $('#mainContainer').hide();
+$('#description').hide();
 {
     // API credentials
     const publicKey = '4702f56dbcc45349d61a76d91edf52bb';
@@ -69,6 +70,7 @@ $('#mainContainer').hide();
         manageSeries(character.series);
         manageComics(character.comics);
          $('#mainContainer').show();
+         $('#description').show();
     }
 
 

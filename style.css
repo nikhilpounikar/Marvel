@@ -64,6 +64,26 @@ html,body {
     cursor: pointer;
 }
 
+.add-to-favourate::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .add-to-favourate:hover::after {
+    opacity: 1;
+  }
+  
 header{
     /* position: fixed; */
     top:0;
