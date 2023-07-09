@@ -1,45 +1,56 @@
-//$('#mainContainer').hide();
 
 // API credentials
 const publicKey = '4702f56dbcc45349d61a76d91edf52bb';
 const privateKey = 'e4c30e534f5c1a57acca17e1bf283898c84faa89';
 
-$(document).ready(function () {
-
-    fetchMarvelCharacters();
-})
+fetchMarvelCharacters();
 
 
-function fetchMarvelCharacters(characterName) {
+function fetchMarvelCharacters(characterName,offset) {
     const timestamp = Date.now().toString();
     let hashedKey = getHashedParam(timestamp);
-    let fetchUrl = 'https://gateway.marvel.com/v1/public/characters?apikey=' + publicKey + '&ts=' + timestamp + '&hash=' + hashedKey;
+    let fetchUrl = 'https://gateway.marvel.com/v1/public/characters?apikey=' +publicKey +'&ts=' +timestamp +'&hash=' +hashedKey;
 
-    // decide if all characters to fetched of purticular character to be fectched from characterName
+     // Set the offset parameter
+  if (offset !== undefined) {
+    fetchUrl += '&offset=' + offset;
+  }
+
+    // Decide if all characters or a particular character should be fetched based on characterName
     if (characterName != undefined) {
         fetchUrl += '&nameStartsWith=' + characterName;
     }
 
+    // Create a new XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', fetchUrl, true);
 
-    // using AJAX to fetch marvel characters
-    $.ajax({
-        url: fetchUrl,
-        method: 'GET',
-        success: function (response) {
+    // Set the success callback function
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
 
-            // if code is success
+            // If code is success
             if (response.code == 200) {
                 console.log(response);
+
+                // Store the next offset in session storage
+                const nextOffset = response.data.offset + response.data.count;
+                sessionStorage.setItem('nextOffset', nextOffset);
                 manipulatedDOMForCharacters(response.data.results);
             }
-
-        },
-        error: function (error) {
-            console.log('Error:', error);
         }
-    });
+    };
 
+    // Set the error callback function
+    xhr.onerror = function () {
+        console.log('Error:', xhr.statusText);
+    };
+
+    // Send the request
+    xhr.send();
 }
+
 
 function manipulatedDOMForCharacters(charactersArray) {
 
@@ -125,8 +136,8 @@ function manipulatedDOMForCharacters(charactersArray) {
 
 }
 
- // to get hased key for marvel API
- function getHashedParam(timestamp) {
+// to get hased key for marvel API
+function getHashedParam(timestamp) {
     var hash = CryptoJS.MD5(timestamp + privateKey + publicKey);
     return hash.toString();
 
@@ -155,7 +166,15 @@ function addToLocalStorage(character) {
 function handleSearch() {
     const searchInput = document.getElementById('searchInput');
     const searchQuery = searchInput.value.trim().toLowerCase();
-    fetchMarvelCharacters(searchQuery);
+    fetchMarvelCharacters(searchQuery,undefined);
+}
+
+function handleLoadMore(){
+    // Get the next offset value from session storage
+    const nextOffset = sessionStorage.getItem('nextOffset');
+    fetchMarvelCharacters(undefined,nextOffset);
 }
 
 document.getElementById('searchButton').addEventListener('click', handleSearch);
+document.getElementById('loadMore').addEventListener('click', handleLoadMore);
+
