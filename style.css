@@ -25,12 +25,39 @@ header{
     
 }
 
-.card{
-   
-    width: calc(95%/5);
+.card {
     padding: 3px;
     cursor: pointer;
 }
+
+@media (min-width: 1200px) {
+    /* Large screens */
+    .card {
+        width: calc(95% / 5);
+    }
+}
+
+@media (max-width: 1199px) {
+    /* Medium screens */
+    .card {
+        width: calc(95% / 4);
+    }
+}
+
+@media (max-width: 991px) {
+    /* Small screens */
+    .card {
+        width: calc(95% / 3);
+    }
+}
+
+@media (max-width: 767px) {
+    /* Extra small screens */
+    .card {
+        width: calc(95% / 2);
+    }
+}
+
 
 .card-image img{
     height:250px;
