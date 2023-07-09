@@ -1,28 +1,72 @@
-html,body {
-           
+html,
+body {
+
     margin: 0;
     font-family: sans-serif;
 }
 
-header{
+header {
     /* position: fixed; */
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 100%;
+    padding: 20px;
     display: flex;
     justify-content: center;
-    height:30px;
-    margin: 1%;
+    justify-content: space-around;
+    align-items: center;
 }
 
+#searchInput {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 200px;
+}
+
+#searchButton {
+    padding: 10px 20px;
+    background-color: #1877f2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#searchButton:hover {
+    background-color: #135eab;
+}
+
+a {
+    text-decoration: none;
+    width: 100px;
+    height: 50px;
+    border-radius: 50px;
+    border: none;
+    background-color: rgb(187, 26, 26);
+    color:#fff;
+    /* font-size: 16px; */
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
 .main-container {
-    padding:1%;
-    margin:2px;
-    
+    padding: 1%;
+    margin: 2px;
+
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    
+
 }
 
 .card {
@@ -31,6 +75,7 @@ header{
 }
 
 @media (min-width: 1200px) {
+
     /* Large screens */
     .card {
         width: calc(95% / 5);
@@ -38,6 +83,7 @@ header{
 }
 
 @media (max-width: 1199px) {
+
     /* Medium screens */
     .card {
         width: calc(95% / 4);
@@ -45,6 +91,7 @@ header{
 }
 
 @media (max-width: 991px) {
+
     /* Small screens */
     .card {
         width: calc(95% / 3);
@@ -52,6 +99,7 @@ header{
 }
 
 @media (max-width: 767px) {
+
     /* Extra small screens */
     .card {
         width: calc(95% / 2);
@@ -59,21 +107,21 @@ header{
 }
 
 
-.card-image img{
-    height:250px;
+.card-image img {
+    height: 250px;
     width: 100%;
     object-fit: cover;
     border: 2px solid black;
     border-radius: 2px;
 }
 
-.card-info{
+.card-info {
     display: flex;
     height: 40px;
 }
 
-.character-name{
-    width:90%;
+.character-name {
+    width: 90%;
     background-color: #292C3E;
     color: white;
     border-radius: 20px;
@@ -83,11 +131,13 @@ header{
     font-size: small;
     font-weight: bold;
 }
-.add-to-favourate{
+
+.add-to-favourate {
     margin-left: 3px;
-   
+
 }
-.fav-character-btn{
+
+.fav-character-btn {
     background-color: #FF468D;
     height: 40px;
     width: 40px;
@@ -114,12 +164,12 @@ header{
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease-in-out;
-  }
-  
-  .add-to-favourate:hover::after {
+}
+
+.add-to-favourate:hover::after {
     opacity: 1;
-  }
-  
+}
+
 
 
 footer {
@@ -131,7 +181,8 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px; /* Adjust this value to set the footer height */
+    height: 50px;
+    /* Adjust this value to set the footer height */
 }
 
 #loadMore {
@@ -144,11 +195,12 @@ footer {
     margin-bottom: 50px;
     color: white;
     border: none;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4); /* Add box shadow */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    /* Add box shadow */
 }
 
 
-.list{
+.list {
 
     display: flex;
     flex-wrap: wrap;
@@ -156,7 +208,7 @@ footer {
     justify-content: space-around;
 }
 
-.list div{
+.list div {
     flex-basis: 40%;
     padding: 10px;
     /* height: 40vh; */
