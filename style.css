@@ -39,7 +39,7 @@ header {
     background-color: #135eab;
 }
 
-a {
+/* a {
     text-decoration: none;
     width: 100px;
     height: 50px;
@@ -47,12 +47,12 @@ a {
     border: none;
     background-color: rgb(187, 26, 26);
     color:#fff;
-    /* font-size: 16px; */
+     font-size: 16px; 
     font-weight: 900;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 a:hover {
     text-decoration: underline;
