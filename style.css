@@ -269,7 +269,7 @@ footer {
     justify-content: space-around;
 }
 
-.description-container{
+#description-container{
     margin: 10px 2.5%;
     background-color: var(--dark-purple);
     color: white;
@@ -278,16 +278,6 @@ footer {
     text-align: justify;
     /* border: 2px solid black; */
 }
-
-#description-para{
-   
-    /* padding: 4px; */
-}
-/* .list div {
-    flex-basis: 40%;
-    padding: 10px;
-    
-}*/
 
 .list-container {
     flex-basis: 45%;

@@ -19,23 +19,51 @@ function fetchMarvelCharacterById(characterId) {
     const timestamp = Date.now().toString();
     let hashedKey = getHashedParam(timestamp);
 
-    // using AJAX to fetch marvel characters
-    $.ajax({
-        url: ' https://gateway.marvel.com/v1/public/characters/' + characterId + '?apikey=' + publicKey + '&ts=' + timestamp + '&hash=' + hashedKey,
-        method: 'GET',
-        success: function (response) {
+    let fetchUrl = 'https://gateway.marvel.com/v1/public/characters/' + characterId + '?apikey=' + publicKey + '&ts=' + timestamp + '&hash=' + hashedKey;
+    // Create a new XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', fetchUrl, true);
 
-            // if code is success
+    // Set the success callback function
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+
+            // If code is success
             if (response.code == 200) {
                 manipulatedDOMForCharacter(response.data.results[0]);
             }
 
-        },
-        error: function (error) {
-            console.log('Error:', error);
         }
-    });
+    };
 
+    // Set the error callback function
+    xhr.onerror = function () {
+        console.log('Error:', xhr.statusText);
+    };
+
+    // Send the request
+    xhr.send();
+
+}
+
+function fetchMarvelCharacters(characterName, offset) {
+    showLoader();
+    const timestamp = Date.now().toString();
+    let hashedKey = getHashedParam(timestamp);
+    let fetchUrl = 'https://gateway.marvel.com/v1/public/characters?apikey=' + publicKey + '&ts=' + timestamp + '&hash=' + hashedKey;
+
+    // Set the offset parameter
+    if (offset !== undefined) {
+        fetchUrl += '&offset=' + offset;
+    }
+
+    // Decide if all characters or a particular character should be fetched based on characterName
+    if (characterName != undefined) {
+        fetchUrl += '&nameStartsWith=' + characterName;
+    }
+
+    
 }
 
 function manipulatedDOMForCharacter(character) {
@@ -60,7 +88,14 @@ function manipulatedDOMForCharacter(character) {
 
     favCharacterButton.setAttribute('id', character.id);
     let descriptionPara = document.querySelector('#description p');
+
+    if(character.description != undefined && character.description != ""){
+        document.getElementById('description-container').classList.remove('disable');
+    }
     descriptionPara.textContent = character.description;
+    
+
+    
     manageStories(character.stories);
     manageEvents(character.events);
     manageSeries(character.series);
