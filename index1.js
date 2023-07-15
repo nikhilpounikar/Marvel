@@ -6,15 +6,16 @@ const privateKey = 'e4c30e534f5c1a57acca17e1bf283898c84faa89';
 fetchMarvelCharacters();
 
 
-function fetchMarvelCharacters(characterName,offset) {
+function fetchMarvelCharacters(characterName, offset) {
+    showLoader();
     const timestamp = Date.now().toString();
     let hashedKey = getHashedParam(timestamp);
-    let fetchUrl = 'https://gateway.marvel.com/v1/public/characters?apikey=' +publicKey +'&ts=' +timestamp +'&hash=' +hashedKey;
+    let fetchUrl = 'https://gateway.marvel.com/v1/public/characters?apikey=' + publicKey + '&ts=' + timestamp + '&hash=' + hashedKey;
 
-     // Set the offset parameter
-  if (offset !== undefined) {
-    fetchUrl += '&offset=' + offset;
-  }
+    // Set the offset parameter
+    if (offset !== undefined) {
+        fetchUrl += '&offset=' + offset;
+    }
 
     // Decide if all characters or a particular character should be fetched based on characterName
     if (characterName != undefined) {
@@ -39,12 +40,15 @@ function fetchMarvelCharacters(characterName,offset) {
                 sessionStorage.setItem('nextOffset', nextOffset);
                 manipulatedDOMForCharacters(response.data.results);
             }
+
+            hideLoader();
         }
     };
 
     // Set the error callback function
     xhr.onerror = function () {
         console.log('Error:', xhr.statusText);
+        hideLoader();
     };
 
     // Send the request
@@ -166,15 +170,26 @@ function addToLocalStorage(character) {
 function handleSearch() {
     const searchInput = document.getElementById('searchInput');
     const searchQuery = searchInput.value.trim().toLowerCase();
-    fetchMarvelCharacters(searchQuery,undefined);
+    fetchMarvelCharacters(searchQuery, undefined);
 }
 
-function handleLoadMore(){
+function handleLoadMore() {
     // Get the next offset value from session storage
     const nextOffset = sessionStorage.getItem('nextOffset');
-    fetchMarvelCharacters(undefined,nextOffset);
+    fetchMarvelCharacters(undefined, nextOffset);
 }
 
 document.getElementById('searchButton').addEventListener('click', handleSearch);
-document.getElementById('loadMore').addEventListener('click', handleLoadMore);
+document.getElementById('loadMoreButton').addEventListener('click', handleLoadMore);
 
+// Display the loader
+function showLoader() {
+    document.getElementById("loader").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+}
+
+// Hide the loader
+function hideLoader() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+}
