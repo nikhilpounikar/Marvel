@@ -70,6 +70,7 @@ function manipulatedDOMForCharacter(character) {
 
 
 function manageStories(stories) {
+    let storiesId = document.getElementById('stories');
     let storiesList = document.querySelector('#stories ul');
 
     for (let story of stories.items) {
@@ -79,11 +80,13 @@ function manageStories(stories) {
 
         storyLi.textContent = story.name;
         storiesList.appendChild(storyLi);
+        storiesId.classList.remove('disable');
     }
 }
 
 
 function manageEvents(events) {
+    let eventsId = document.getElementById('events');
     let eventsList = document.querySelector('#events ul');
 
     for (let event of events.items) {
@@ -93,10 +96,12 @@ function manageEvents(events) {
 
         eventLi.textContent = event.name;
         eventsList.appendChild(eventLi);
+        eventsId.classList.remove('disable');
     }
 }
 
 function manageSeries(series) {
+    let seriesId = document.getElementById('series');
     let seriesList = document.querySelector('#series ul');
 
     for (let chapter of series.items) {
@@ -106,10 +111,12 @@ function manageSeries(series) {
 
         seriesLi.textContent = chapter.name;
         seriesList.appendChild(seriesLi);
+        seriesId.classList.remove('disable');
     }
 }
 
 function manageComics(comics) {
+    let comicsId = document.getElementById('comics');
     let comicsList = document.querySelector('#comics ul');
 
     for (let chapter of comics.items) {
@@ -119,6 +126,7 @@ function manageComics(comics) {
 
         comicsLi.textContent = chapter.name;
         comicsList.appendChild(comicsLi);
+        comicsId.classList.remove('disable');
     }
 }
 

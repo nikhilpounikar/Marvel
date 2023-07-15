@@ -1,7 +1,8 @@
 :root {
     --height: 50px;
     --secondary-color: #6c757d;
-    --bg-color:rgba(23, 23, 23, 0.716);
+    --bg-color: rgba(23, 23, 23, 0.716);
+    --dark-purple:#292C3E;
 }
 
 html,
@@ -91,8 +92,8 @@ header {
     border-radius: 50px;
     border: none;
     background-color: var(--bg-color);
-    color:#fff;
-     font-size: 16px; 
+    color: #fff;
+    font-size: 16px;
     font-weight: 900;
     display: flex;
     justify-content: center;
@@ -248,7 +249,7 @@ footer {
     width: 150px;
     height: 50px;
     border-radius: 50px;
-    background-color:var(--bg-color);
+    background-color: var(--bg-color);
     cursor: pointer;
     font-weight: 900;
     /* margin-bottom: 50px; */
@@ -268,9 +269,98 @@ footer {
     justify-content: space-around;
 }
 
-.list div {
+.description-container{
+    margin: 10px 2.5%;
+    background-color: var(--dark-purple);
+    color: white;
+    padding: 4px;
+    line-height: 1.5rem;
+    text-align: justify;
+    /* border: 2px solid black; */
+}
+
+#description-para{
+   
+    /* padding: 4px; */
+}
+/* .list div {
     flex-basis: 40%;
     padding: 10px;
-    /* height: 40vh; */
-    /* overflow-y: scroll; */
+    
+}*/
+
+.list-container {
+    flex-basis: 45%;
+    
+    margin: 12px 2px;
+    padding: 2px;
+    text-align: center;
+    font-size: larger;
+    /* scrollbar-gutter: stable; */
+    /* scrollbar-width: none; */
+}
+
+.list-type-heading-container{
+    background-color: var(--dark-purple);
+    height: 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actual-list {
+    margin-top: 0px;
+    padding: 4px;
+    text-align: left;
+    height: 300px;
+    overflow-y: auto;
+    border: 2px solid black;
+ 
+}
+.actual-list li {
+    /* list-style-type: none; */
+    line-height: 2rem;
+    /* background-color: gray; */
+    /* border-radius: 1rem; */
+    /* font-size: medium; */
+    margin: 1px;
+    /* color: white; */
+    font-weight: 500;
+    text-decoration:wavy;
+    border-bottom: 1px dashed black;
+    /* text-indent: 12px; */
+    
+}
+
+.actual-list li:nth-child(odd){
+    background-color: #b8c2cb1f;
+}
+
+.list-container1 li::marker {
+    content: "→"; /* Set a custom marker content */
+    color: red; /* Customize the color of the marker */
+    font-size: 20px; /* Customize the font size of the marker */
+    font-weight: bold; /* Customize the font weight of the marker */
+} 
+  
+
+.actual-list::-webkit-scrollbar {
+    width: 6px;
+    /* Set the width of the scrollbar */
+}
+
+.actual-list::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 6px;
+    /* Set the color of the thumb */
+}
+
+.actual-list::-webkit-scrollbar-thumb:hover {
+    background-color: darkgray;
+    /* Set the color of the thumb on hover */
+}
+
+.disable{
+    display: none;
 }
