@@ -76,7 +76,7 @@ function manipulatedDOMForCharacters(charactersArray) {
 
         // Create anchor element for the image
         const imageLink = document.createElement('a');
-        imageLink.href = '/superhero.html?characterId=' + character.id;
+        imageLink.href = './superhero.html?characterId=' + character.id;
 
         // Create image element
         const image = document.createElement('img');
