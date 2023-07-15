@@ -63,12 +63,11 @@ function fetchMarvelCharacters(characterName, offset) {
         fetchUrl += '&nameStartsWith=' + characterName;
     }
 
-    
+
 }
 
 function manipulatedDOMForCharacter(character) {
 
-    console.log(character);
     // getting the card html from document for adding characters card dynamically
     let currentCard = document.getElementsByClassName('card')[0];
 
@@ -89,13 +88,15 @@ function manipulatedDOMForCharacter(character) {
     favCharacterButton.setAttribute('id', character.id);
     let descriptionPara = document.querySelector('#description p');
 
-    if(character.description != undefined && character.description != ""){
+    if (character.description != undefined && character.description != "") {
         document.getElementById('description-container').classList.remove('disable');
     }
     descriptionPara.textContent = character.description;
-    
 
-    
+    favCharacterButton.addEventListener('click', function () {
+        addToLocalStorage(character);
+    });
+
     manageStories(character.stories);
     manageEvents(character.events);
     manageSeries(character.series);
@@ -170,4 +171,27 @@ function getHashedParam(timestamp) {
     var hash = CryptoJS.MD5(timestamp + privateKey + publicKey);
     return hash.toString();
 
+}
+
+function addToLocalStorage(character) {
+    // Retrieve existing data from local storage (if any)
+    let existingData = localStorage.getItem('favoriteCharacters');
+
+    // Parse the existing data as JSON (if any)
+    let parsedData = existingData ? JSON.parse(existingData) : [];
+
+    // Check if the character already exists in the data
+    const existingCharacter = parsedData.find(c => c.id === character.id);
+
+    if (!existingCharacter) {
+        // Add the new character to the existing data
+        parsedData.push(character);
+
+        alert(character.name+" added to favorite Character List");
+        // Store the updated data in local storage
+        localStorage.setItem('favoriteCharacters', JSON.stringify(parsedData));
+    } else {
+
+        alert("Already In favorite List");
+    }
 }

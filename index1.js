@@ -161,8 +161,12 @@ function addToLocalStorage(character) {
         // Add the new character to the existing data
         parsedData.push(character);
 
+        alert(character.name+" added to favorite Character List");
         // Store the updated data in local storage
         localStorage.setItem('favoriteCharacters', JSON.stringify(parsedData));
+    } else {
+
+        alert("Already In favorite List");
     }
 }
 
