@@ -1,4 +1,7 @@
 
+// getting the card html from document for adding characters card dynamically
+var mainContainer = document.getElementById('mainContainer');
+
 // API credentials
 const publicKey = '4702f56dbcc45349d61a76d91edf52bb';
 const privateKey = 'e4c30e534f5c1a57acca17e1bf283898c84faa89';
@@ -39,6 +42,7 @@ function fetchMarvelCharacters(characterName, offset) {
                 const nextOffset = response.data.offset + response.data.count;
                 sessionStorage.setItem('nextOffset', nextOffset);
                 manipulatedDOMForCharacters(response.data.results);
+                scrollToBottom();
             }
 
             hideLoader();
@@ -57,9 +61,6 @@ function fetchMarvelCharacters(characterName, offset) {
 
 
 function manipulatedDOMForCharacters(charactersArray) {
-
-    // getting the card html from document for adding characters card dynamically
-    let mainContainer = document.getElementById('mainContainer');
 
     //iterate over character array
     for (let character of charactersArray) {
@@ -112,6 +113,8 @@ function manipulatedDOMForCharacters(charactersArray) {
         const favoriteButton = document.createElement('button');
         favoriteButton.id = character.id;
         favoriteButton.className = 'fav-character-btn';
+
+        // add event listner if purticular character is added to favorite list
         favoriteButton.addEventListener('click', function () {
             addToLocalStorage(character);
         });
@@ -161,7 +164,7 @@ function addToLocalStorage(character) {
         // Add the new character to the existing data
         parsedData.push(character);
 
-        alert(character.name+" added to favorite Character List");
+        alert(character.name + " added to favorite Character List");
         // Store the updated data in local storage
         localStorage.setItem('favoriteCharacters', JSON.stringify(parsedData));
     } else {
@@ -174,6 +177,18 @@ function addToLocalStorage(character) {
 function handleSearch() {
     const searchInput = document.getElementById('searchInput');
     const searchQuery = searchInput.value.trim().toLowerCase();
+
+    // reseting the input value
+    searchInput.value = "";
+
+    //removing load more button so that it does not fetch irrelevant characters
+    document.getElementsByTagName('footer')[0].style.display = 'none';
+
+    // remove all the present character in DOM prior getting new one
+    while (mainContainer.firstChild) {
+        mainContainer.removeChild(mainContainer.firstChild);
+    }
+
     fetchMarvelCharacters(searchQuery, undefined);
 }
 
@@ -196,4 +211,11 @@ function showLoader() {
 function hideLoader() {
     document.getElementById("loader").style.display = "none";
     document.getElementById("overlay").style.display = "none";
+}
+
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
 }
