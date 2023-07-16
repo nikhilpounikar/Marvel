@@ -183,6 +183,19 @@ a:hover {
 
 }
 
+.remove-btn{
+    background-color: #ff4646;
+    height: 40px;
+    width: 40px;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
 .fav-character-btn {
     background-color: #FF468D;
     height: 40px;

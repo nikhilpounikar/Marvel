@@ -52,22 +52,22 @@ function manipulatedDOMForCharactersNew(charactersArray) {
 
     // Create remove from favorite element
     const removeFromFavorite = document.createElement('div');
+    // removeFromFavorite.className = 'remove-favourite';
     removeFromFavorite.className = 'add-to-favourite';
     removeFromFavorite.setAttribute('data-tooltip', 'Remove');
 
     // Create button element for removing from favorite
     const favoriteRemoveButton = document.createElement('button');
     favoriteRemoveButton.id = character.id;
-    favoriteRemoveButton.className = 'fav-character-btn';
+    favoriteRemoveButton.className = 'remove-btn';
     favoriteRemoveButton.addEventListener('click', function () {
       removeFromLocalStorage(character.id);
     });
 
     // Create heart icon element
-    const removeIcon = document.createElement('span');
-    removeIcon.textContent = 'X';
-    //heartIcon.className = 'fas fa-heart';
-
+    const removeIcon = document.createElement('i');
+    removeIcon.className = 'fa fa-remove';
+   
     // Append the heart icon to the favorite button
     favoriteRemoveButton.appendChild(removeIcon);
 
