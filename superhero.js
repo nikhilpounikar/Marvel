@@ -47,24 +47,6 @@ function fetchMarvelCharacterById(characterId) {
 
 }
 
-function fetchMarvelCharacters(characterName, offset) {
-    showLoader();
-    const timestamp = Date.now().toString();
-    let hashedKey = getHashedParam(timestamp);
-    let fetchUrl = 'https://gateway.marvel.com/v1/public/characters?apikey=' + publicKey + '&ts=' + timestamp + '&hash=' + hashedKey;
-
-    // Set the offset parameter
-    if (offset !== undefined) {
-        fetchUrl += '&offset=' + offset;
-    }
-
-    // Decide if all characters or a particular character should be fetched based on characterName
-    if (characterName != undefined) {
-        fetchUrl += '&nameStartsWith=' + characterName;
-    }
-
-
-}
 
 function manipulatedDOMForCharacter(character) {
 
@@ -88,24 +70,26 @@ function manipulatedDOMForCharacter(character) {
     favCharacterButton.setAttribute('id', character.id);
     let descriptionPara = document.querySelector('#description p');
 
+    // if description of character is available then show description div
     if (character.description != undefined && character.description != "") {
         document.getElementById('description-container').classList.remove('disable');
     }
     descriptionPara.textContent = character.description;
 
+    // adding event listener so that character can be put in favorite list
     favCharacterButton.addEventListener('click', function () {
         addToLocalStorage(character);
     });
 
-    manageStories(character.stories);
-    manageEvents(character.events);
-    manageSeries(character.series);
-    manageComics(character.comics);
+    manageStoriesDOM(character.stories);
+    manageEventsDOM(character.events);
+    manageSeriesDOM(character.series);
+    manageComicsDOM(character.comics);
 
 }
 
 
-function manageStories(stories) {
+function manageStoriesDOM(stories) {
     let storiesId = document.getElementById('stories');
     let storiesList = document.querySelector('#stories ul');
 
@@ -116,12 +100,13 @@ function manageStories(stories) {
 
         storyLi.textContent = story.name;
         storiesList.appendChild(storyLi);
+        // if story avaliable show story div
         storiesId.classList.remove('disable');
     }
 }
 
 
-function manageEvents(events) {
+function manageEventsDOM(events) {
     let eventsId = document.getElementById('events');
     let eventsList = document.querySelector('#events ul');
 
@@ -132,11 +117,12 @@ function manageEvents(events) {
 
         eventLi.textContent = event.name;
         eventsList.appendChild(eventLi);
+        // if events are avaliable show event div
         eventsId.classList.remove('disable');
     }
 }
 
-function manageSeries(series) {
+function manageSeriesDOM(series) {
     let seriesId = document.getElementById('series');
     let seriesList = document.querySelector('#series ul');
 
@@ -147,11 +133,12 @@ function manageSeries(series) {
 
         seriesLi.textContent = chapter.name;
         seriesList.appendChild(seriesLi);
+        // if series avaliable show series div
         seriesId.classList.remove('disable');
     }
 }
 
-function manageComics(comics) {
+function manageComicsDOM(comics) {
     let comicsId = document.getElementById('comics');
     let comicsList = document.querySelector('#comics ul');
 
@@ -162,6 +149,7 @@ function manageComics(comics) {
 
         comicsLi.textContent = chapter.name;
         comicsList.appendChild(comicsLi);
+        // if comics avaliable show comics div
         comicsId.classList.remove('disable');
     }
 }

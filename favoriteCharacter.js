@@ -52,14 +52,17 @@ function manipulatedDOMForCharactersNew(charactersArray) {
 
     // Create remove from favorite element
     const removeFromFavorite = document.createElement('div');
-    // removeFromFavorite.className = 'remove-favourite';
     removeFromFavorite.className = 'add-to-favourite';
     removeFromFavorite.setAttribute('data-tooltip', 'Remove');
 
     // Create button element for removing from favorite
     const favoriteRemoveButton = document.createElement('button');
     favoriteRemoveButton.id = character.id;
+
+    // add remove class css property
     favoriteRemoveButton.className = 'remove-btn';
+
+    // add event listner to remove that character from favorite list
     favoriteRemoveButton.addEventListener('click', function () {
       removeFromLocalStorage(character.id);
     });
@@ -107,6 +110,7 @@ function removeFromLocalStorage(characterId) {
     localStorage.setItem('favoriteCharacters', JSON.stringify(parsedData));
   }
 
+  // reload the page to refresh the DOM
   location.reload();
 }
 

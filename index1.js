@@ -10,12 +10,14 @@ fetchMarvelCharacters();
 
 
 function fetchMarvelCharacters(characterName, offset) {
+    // show loader while fetching data
     showLoader();
     const timestamp = Date.now().toString();
     let hashedKey = getHashedParam(timestamp);
     let fetchUrl = 'https://gateway.marvel.com/v1/public/characters?apikey=' + publicKey + '&ts=' + timestamp + '&hash=' + hashedKey;
 
     // Set the offset parameter
+    // this paramter helps fetching fresh data say 21 to 40, 41 to 60,etc
     if (offset !== undefined) {
         fetchUrl += '&offset=' + offset;
     }
@@ -42,9 +44,10 @@ function fetchMarvelCharacters(characterName, offset) {
                 const nextOffset = response.data.offset + response.data.count;
                 sessionStorage.setItem('nextOffset', nextOffset);
                 manipulatedDOMForCharacters(response.data.results);
+                // scroll to bottom of page just to render fresh images
                 scrollToBottom();
             }
-
+            // hide loader after fetching the content
             hideLoader();
         }
     };
@@ -160,6 +163,7 @@ function addToLocalStorage(character) {
     // Check if the character already exists in the data
     const existingCharacter = parsedData.find(c => c.id === character.id);
 
+    // if character not present in favorite then add to favorite 
     if (!existingCharacter) {
         // Add the new character to the existing data
         parsedData.push(character);
@@ -168,13 +172,14 @@ function addToLocalStorage(character) {
         // Store the updated data in local storage
         localStorage.setItem('favoriteCharacters', JSON.stringify(parsedData));
     } else {
-
+        // if already present give feedback
         alert("Already In favorite List");
     }
 }
 
 // function to manage what character by name to be fetched
 function handleSearch() {
+    // get the imput value to be search
     const searchInput = document.getElementById('searchInput');
     const searchQuery = searchInput.value.trim().toLowerCase();
 
