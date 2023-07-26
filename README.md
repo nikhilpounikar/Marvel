@@ -5,4 +5,4 @@ index.html ==> home page
 superhero.html ===> character description page
 favoriteHero.html ===> to view favorite characters.
 
-Need better way design pages.
+Need a better way to design pages.
